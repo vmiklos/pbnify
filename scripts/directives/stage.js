@@ -43,12 +43,37 @@ angular.module('pbnApp')
 			    return array.reduce(function(a, b) {return a + b;}, 0) / array.length;
 			};
 			var color = {
-			    x: x,
-			    y: y,
 			    r: Math.round(mean(pixels.r)),
 			    g: Math.round(mean(pixels.g)),
 			    b: Math.round(mean(pixels.b))
 			};
+			if (window.colorList === undefined)
+			{
+                            // feher, vilbarna, sarga, narancs, piros, bordo
+                            // sotbarna, zold, sotzold, kek, sotkek, fekete
+			    window.colorList = [
+                                [0xff, 0xff, 0xff], // feher
+                                [0xff, 0xee, 0xd5], // vilbarna
+                                [0xdd, 0xe3, 0x3a], // sarga
+                                [0xdf, 0x61, 0x2f], // narancs
+                                [0xc5, 0x49, 0x41], // piros
+                                [0xb1, 0x29, 0x3f], // bordo
+                                [0x9d, 0x4e, 0x00], // sotetbarna
+                                [0x00, 0xb8, 0x00], // zold
+                                [0x01, 0x5e, 0x66], // sotzold
+                                [0x00, 0x7c, 0xf7], // kek
+                                [0x14, 0x64, 0xe2], // sotkek
+                                [0x00, 0x00, 0x00]  // fekete
+                            ];
+			    window.colorIndex = 0;
+			}
+			var pixel = window.colorList[window.colorIndex];
+			window.colorIndex++;
+			var color = {
+			    r: pixel[0],
+			    g: pixel[1],
+			    b: pixel[2]
+                        };
 			scope.addColor(color);
 			scope.$apply();
 		    }
